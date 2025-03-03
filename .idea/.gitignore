@@ -1,0 +1,10 @@
+echo "target/
+*.jar
+*.war
+*.iml
+*.class
+/log/
+.DS_Store
+.idea/
+.vscode/
+.env" > .gitignore
