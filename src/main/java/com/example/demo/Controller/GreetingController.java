@@ -1,41 +1,39 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Greeting;
 import org.springframework.web.bind.annotation.*;
-import java.util.Map;
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/greeting")
 public class GreetingController {
-    // curl -X GET "http://localhost:8080/greeting/?name=Ayushi"
+
+    // Example: GET http://localhost:8080/greeting/?name=Ayushi
     @GetMapping("/")
-    public String getGreeting(@RequestParam(name = "name") String name) {
-        return "{\"message\": \"Hello, " + name + " from GET method!\"}";
+    public Greeting getGreeting(@RequestParam(name = "name") String name) {
+        return new Greeting("Hello, " + name + " from GET method!");
     }
 
-    // curl -X POST http://localhost:8080/greeting/ -H "Content-Type: application/json" -d '{"message": "Hello, Spring!"}'
+    // Example: POST http://localhost:8080/greeting/
+    // Header: Content-Type: application/json
+    // Body: {"message": "Hello, Spring!"}
     @PostMapping("/")
-    public String postGreeting(@RequestBody Map<String, String> request) {
-        if (request == null) {
-            request = new HashMap<>();
-        }
-        String message = request.getOrDefault("message", "No message provided");
-        return "{\"message\": \"Received message: " + message + "\"}";
+    public Greeting postGreeting(@RequestBody Greeting request) {
+        String message = request.getMessage() != null ? request.getMessage() : "No message provided";
+        return new Greeting("Received message: " + message);
     }
 
-    // curl -X PUT http://localhost:8080/greeting/ -H "Content-Type: application/json" -d '{"updatedMessage": "Updated greeting!"}'
+    // Example: PUT http://localhost:8080/greeting/
+    // Header: Content-Type: application/json
+    // Body: {"message": "Updated greeting!"}
     @PutMapping("/")
-    public String putGreeting(@RequestBody Map<String, String> request) {
-        if (request == null) {
-            request = new HashMap<>();
-        }
-        String updatedMessage = request.getOrDefault("updatedMessage", "No updated message provided");
-        return "{\"message\": \"Greeting updated to: " + updatedMessage + "\"}";
+    public Greeting putGreeting(@RequestBody Greeting request) {
+        String updatedMessage = request.getMessage() != null ? request.getMessage() : "No updated message provided";
+        return new Greeting("Greeting updated to: " + updatedMessage);
     }
 
-    // curl -X DELETE "http://localhost:8080/greeting/?id=123"
+    // Example: DELETE http://localhost:8080/greeting/?id=123
     @DeleteMapping("/")
-    public String deleteGreeting(@RequestParam(name = "id") int id) {
-        return "{\"message\": \"Greeting with ID " + id + " has been deleted.\"}";
+    public Greeting deleteGreeting(@RequestParam(name = "id") int id) {
+        return new Greeting("Greeting with ID " + id + " has been deleted.");
     }
 }
