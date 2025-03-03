@@ -19,13 +19,13 @@ public class GreetingController {
         this.userRepository = userRepository;
     }
 
-    /*// GET all users
+    // GET all users
     @GetMapping("/")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-     */
+
 
     // GET user by ID
     @GetMapping("/{id}")
