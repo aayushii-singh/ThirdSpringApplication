@@ -42,7 +42,7 @@ public class GreetingController {
     }
 
     // PUT (Update user message)
-    /*@PutMapping("/{id}")
+    @PutMapping("/{id}")
     public String putGreeting(@PathVariable Long id, @RequestBody User updatedUser) {
         Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isPresent()) {
@@ -53,7 +53,6 @@ public class GreetingController {
         }
         return "User not found.";
     }
-*/
     /*
     // DELETE (Remove user by ID)
     @DeleteMapping("/{id}")
