@@ -53,7 +53,7 @@ public class GreetingController {
         }
         return "User not found.";
     }
-    /*
+
     // DELETE (Remove user by ID)
     @DeleteMapping("/{id}")
     public String deleteGreeting(@PathVariable Long id) {
@@ -64,5 +64,4 @@ public class GreetingController {
         return "User not found.";
     }
 
-*/
 }
