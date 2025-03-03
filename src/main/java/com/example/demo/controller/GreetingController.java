@@ -35,7 +35,6 @@ public class GreetingController {
                 .orElse("User not found.");
     }
 
-    // POST (Create new user)
     @PostMapping("/")
     public String postGreeting(@RequestBody User user) {
         userRepository.save(user);
