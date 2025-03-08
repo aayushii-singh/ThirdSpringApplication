@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AuthUserDTO;
 import com.example.demo.dto.LoginDTO;
+import java.util.Map;
 import com.example.demo.dto.ResponseDTO;
 import com.example.demo.model.AuthUser;
 import com.example.demo.service.AuthenticationService;
@@ -30,5 +31,17 @@ public class AuthUserController {
         String result=authenticationService.login(loginDTO);
         ResponseDTO responseUserDTO=new ResponseDTO("Login successfully!!",result);
         return  new ResponseEntity<>(responseUserDTO,HttpStatus.OK);
+    }
+    @PutMapping("/auth/forgotPassword/{email}")
+    public ResponseEntity<ResponseDTO> forgotPassword(@PathVariable String email, @RequestBody Map<String, String> request) {
+        String newPassword = request.get("password");
+        String message = authenticationService.forgotPassword(email, newPassword);
+        return new ResponseEntity<>(new ResponseDTO(message, null), HttpStatus.OK);
+    }
+
+    @PutMapping("/auth/resetPassword/{email}")
+    public ResponseEntity<ResponseDTO> resetPassword(@PathVariable String email, @RequestParam String currentPassword, @RequestParam String newPassword) {
+        String message = authenticationService.resetPassword(email, currentPassword, newPassword);
+        return new ResponseEntity<>(new ResponseDTO(message, null), HttpStatus.OK);
     }
 }
